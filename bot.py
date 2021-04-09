@@ -33,17 +33,29 @@ rs_wait = 5
 patience = 2
 
 
-move = { "right": 'd',
+move = { "right": 'd', 
 "left": 'a',
 "up": 'w',
 "down": 's',
 "jump": 'space',
 "use": 'f'
 }
-ability_keys = {"shield": "3",
+attack_dir = {"right": "right", #direction keys for base attacks
+"left": "left",
+"up": "up",
+"down": "down"
+
+}
+ability_keys = {"shield": "3", # ability keys
 "buff": "4",
 "att1": "1",
 "att2": "2"
+}
+ability_cd { "shield": "0",  #cooldowns
+"buff": "10",
+"att1": "5"
+"att2": "4",
+"global": "1"
 }
 
 
@@ -163,14 +175,14 @@ def move_player(moveKey, pointx, pointy):
         old_x = get_playerX(pm, client, pointx)
         old_y = get_playerY(pm, client, pointy)
         coords = [old_x, old_y]
+        pdi.keyDown(moveKey)
         for i in range(10):
-            pdi.keyDown(moveKey)
-            sleep(0.2)
+            sleep(patience / 10) #waits abit
         pdi.keyUp(moveKey)
         new_x = get_playerX(pm, client, pointx)
         new_y = get_playerY(pm, client, pointy)
         new_coords = [new_x, new_y]
-        if(new_coords == coords):
+        if(new_coords == coords): #compares old coords with new ones to check if player is in place
             curr = False
             print("move " + str(moveKey) + " is at the same coords")
             break
@@ -178,10 +190,17 @@ def move_player(moveKey, pointx, pointy):
 def move_handler(pm, client, pointx, pointy):
     x = get_playerX(pm, client, pointx)
     y = get_playerY(pm, client, pointy)
+    coords = [x,y]
     move_player(move["right"], pointx, pointy)
     move_player(move["up"], pointx, pointy)
     move_player(move["left"], pointx, pointy)
     move_player(move["down"], pointx, pointy)
+    new_x =  get_playerX(pm, client, pointx)
+    new_y = get_playerY(pm, client, pointy)
+    newcoords = [new_x, new_y]
+    if(coords == newcoords):
+        wpos = locate_game()
+        reset_game(wpos):
 
 
 sleep(0.1)
