@@ -156,6 +156,29 @@ def get_playerX(pm, client, point):
 def get_playerY(pm, client, point):
         y = pm.read_float(client + point)
         return y
+def move_player(moveKey, pointx, pointy):
+    curr = True
+    while curr == True:
+        sleep(0.05)
+        old_x = get_playerX(pm, client, pointx)
+        old_y = get_playerY(pm, client, pointy)
+        coords = [old_x, old_y]
+        for i in range(10):
+            pdi.keyDown(moveKey)
+            sleep(0.2)
+        pdi.keyUp(moveKey)
+        new_x = get_playerX(pm, client, pointx)
+        new_y = get_playerY(pm, client, pointy)
+        new_coords = [new_x, new_y]
+        if(new_coords == coords):
+            curr = False
+            print("move " + str(moveKey) + " is at the same coords")
+            break
+
+def move_handler(pm, client, pointx, pointy):
+    x = get_playerX(pm, client, pointx)
+    y = get_playerY(pm, client, pointy)
+    move_player(move["right"], pointx, pointy)
 
 
 sleep(0.1)
@@ -168,14 +191,7 @@ name = get_name(PROCESS_ID) #transforms name to the exact name.exe
 pm = pymem.Pymem(name)
 client = pymem.process.module_from_name(pm.process_handle, name).lpBaseOfDll
 print("Exe Name: " + str(name) + " | heroProcess: " + str(client))
-
-
-
-
-
-print(get_playerX(pm, client, Pointer_x))
-print(get_playerY(pm, client, Pointer_y))
-
+move_handler(pm, client, Pointer_x, Pointer_y)
 
 
 
