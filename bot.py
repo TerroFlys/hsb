@@ -34,8 +34,8 @@ patience = 2
 
 
 move = { "right": 'd',
-"left": 'q',
-"up": 'z',
+"left": 'a',
+"up": 'w',
 "down": 's',
 "jump": 'space',
 "use": 'f'
@@ -179,6 +179,9 @@ def move_handler(pm, client, pointx, pointy):
     x = get_playerX(pm, client, pointx)
     y = get_playerY(pm, client, pointy)
     move_player(move["right"], pointx, pointy)
+    move_player(move["up"], pointx, pointy)
+    move_player(move["left"], pointx, pointy)
+    move_player(move["down"], pointx, pointy)
 
 
 sleep(0.1)
