@@ -33,7 +33,7 @@ rs_wait = 5
 patience = 2
 
 
-move = { "right": 'd', 
+move = { "right": 'd',
 "left": 'a',
 "up": 'w',
 "down": 's',
@@ -51,9 +51,9 @@ ability_keys = {"shield": "3", # ability keys
 "att1": "1",
 "att2": "2"
 }
-ability_cd { "shield": "0",  #cooldowns
+ability_cd ={ "shield": "0",  #cooldowns
 "buff": "10",
-"att1": "5"
+"att1": "5",
 "att2": "4",
 "global": "1"
 }
@@ -200,9 +200,9 @@ def move_handler(pm, client, pointx, pointy):
     newcoords = [new_x, new_y]
     if(coords == newcoords):
         wpos = locate_game()
-        reset_game(wpos):
+        reset_game(wpos)
 
-
+pg.alert()
 sleep(0.1)
 PROCESS_ID = get_pid(name) #base name what its supposed te be put in to get PID
 print("ProcessID: " + str(PROCESS_ID))
